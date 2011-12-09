@@ -1,8 +1,8 @@
 # Ping the CouchDB query server
 
-Pingquery CouchDB is a plugin to help ascertain whether the query server is working normally. It provides a new URL where an admin can submit an expression in that language, (`2 + 2`), and compare it to the expected output (`4`).
+Pingquery is a plugin to help ascertain whether the query server is working normally. It provides a new URL where an admin can submit an expression in that language, (`2 + 2`), and compare it to the expected output (`4`).
 
-## Example: a good ping
+## Good ping example
 
     POST /_pingquery/javascript HTTP/1.1
     Authorization: Basic <admin credentials>
@@ -20,7 +20,7 @@ Pingquery CouchDB is a plugin to help ascertain whether the query server is work
 
     {"ok":true,"match":"Hello, world"}
 
-## Example: a bad ping
+## Bad ping example
 
     POST /_pingquery/javascript HTTP/1.1
     Authorization: Basic <admin credentials>
@@ -47,6 +47,12 @@ I like to use cURL from a cron job to detect problems:
            -d '{"in":"function() { return typeof log }", "out":"function"}'
     $ echo $?
     0
+
+## Compatibility
+
+Pingquery works with all query server languages: JavaScript, CoffeeScript, Native (Erlang), Python, Ruby, etc.
+
+To execute a ping, the plugin tricks the query server into running a standard `_show` function, then examines the output.
 
 ## Building
 
